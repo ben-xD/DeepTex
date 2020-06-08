@@ -1,4 +1,4 @@
-package com.example.latex_symbol
+package uk.orth.deeptex
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:latex_symbol/stroke.dart';
+import 'package:deeptex/stroke.dart';
 
 class StrokesPainter extends CustomPainter {
   final List<Stroke> strokes;
@@ -13,7 +13,7 @@ class StrokesPainter extends CustomPainter {
       paint.isAntiAlias = true;
       paint.strokeCap = StrokeCap.round;
       paint.strokeJoin = StrokeJoin.round;
-      paint.strokeWidth = 10;
+      paint.strokeWidth = 20;
       Offset startingPoint = stroke.points[0];
       for (int i = 0; i < stroke.points.length - 1; i++) {
         Offset nextPoint = startingPoint + stroke.points[i + 1];

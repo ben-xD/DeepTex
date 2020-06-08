@@ -1,4 +1,4 @@
-# latex_symbol
+# DeepTex
 
 A new Flutter project.
 

@@ -7,8 +7,8 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:latex_symbol/stroke.dart';
-import 'package:latex_symbol/strokes_painter.dart';
+import 'package:deeptex/stroke.dart';
+import 'package:deeptex/strokes_painter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tflite/tflite.dart';
 
@@ -81,8 +81,11 @@ class _HomeState extends State {
       print(result);
     } on PlatformException {
       print("Failed to load model.");
+    } finally {
+      setState(() {
+        _busy = false;
+      });
     }
-    _busy = false;
   }
 
   void clearStrokes() {
@@ -102,14 +105,22 @@ class _HomeState extends State {
     img.Image trimmedImage = img.trim(image,
         mode: img.TrimMode.bottomRightColor, sides: img.Trim.all);
 
-    // TODO skew to one shape
+    trimmedImage = img.copyResize(trimmedImage, width: 128, height: 128);
     print("width: ${trimmedImage.width}, height: ${trimmedImage.height}");
 
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String imagePath = appDocDir.path + '/trimmedImage2.jpg';
+    // Upload image to google storage
+
+    Directory dir = await getApplicationDocumentsDirectory();
+    // why do file names need to be unique
+    String imagePath = dir.path +
+        "/trimmedImage-${new DateTime.now().millisecondsSinceEpoch}.jpg";
     await File(imagePath).writeAsBytes(img.encodeJpg(trimmedImage));
+
+    // Remove saving to library
     bool saved = await GallerySaver.saveImage(imagePath);
-    print("Saved?: $saved");
+    // savedFile.deleteSync();
+    print("Saved?: $saved as $imagePath");
+    print("Saved as $imagePath");
     return;
   }
 

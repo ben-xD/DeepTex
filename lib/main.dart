@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:deeptex/screens/onboarding/widgets/onboarding.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
@@ -16,7 +18,19 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Future<bool> showOnboarding;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,27 +40,44 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text("Draw a LaTex Character"),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.history,
-                    color: Colors.white,
-                  ),
-                  onPressed: null,
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.delete_sweep,
-                    color: Colors.white,
-                  ),
-                  onPressed: null,
-                ),
-              ],
-            ),
-            body: Home()));
+        home: FutureBuilder(
+            future: showOnboarding,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Text("Loading...");
+              }
+
+              bool showOnboarding = snapshot.data;
+              if (snapshot.hasError) {
+                showOnboarding = true;
+              }
+
+              if (showOnboarding) {
+                return Onboarding();
+              } else {
+                return Scaffold(
+                    appBar: AppBar(
+                      title: Text("Draw a LaTex Character"),
+                      actions: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.history,
+                            color: Colors.white,
+                          ),
+                          onPressed: null,
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.delete_sweep,
+                            color: Colors.white,
+                          ),
+                          onPressed: null,
+                        ),
+                      ],
+                    ),
+                    body: Home());
+              }
+            }));
   }
 }
 

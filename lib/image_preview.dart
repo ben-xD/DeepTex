@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 
 class ImagePreview extends StatelessWidget {
   ImagePreview(this.image);
-  ByteData image;
+  final ByteData image;
 
   @override
   Widget build(BuildContext context) {

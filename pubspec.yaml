@@ -26,8 +26,9 @@ dependencies:
   tflite: ^1.0.6
   gallery_saver: ^2.0.1
   path_provider: ^1.6.10
-  # image: ^2.1.13 # commented out because flutter_test requires 2.1.12
-firebase_storage: ^3.1.6
+  image: ^2.1.13
+  firebase_storage: ^3.1.6
+  shared_preferences: '>=0.5.7+3 <2.0.0'
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Onboarding extends StatelessWidget {
+class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Text("Onboarding");
+    return Text("More screen");
   }
 }

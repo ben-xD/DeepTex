@@ -23,16 +23,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^4.1.3
   tflite: ^1.0.6
   gallery_saver: ^2.0.1
   path_provider: ^1.6.10
   image: ^2.1.13
   firebase_storage: ^3.1.6
   shared_preferences: '>=0.5.7+3 <2.0.0'
+  google_fonts: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  android: 'launcher_icon'
+  ios: true
+  image_path: 'assets/icon/icon.png'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
